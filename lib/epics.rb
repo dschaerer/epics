@@ -42,6 +42,8 @@ require "epics/cdz"
 require "epics/xct"
 require "epics/hia"
 require "epics/ini"
+require "epics/z53"
+require "epics/xe2"
 require "epics/signer"
 require "epics/client"
 
