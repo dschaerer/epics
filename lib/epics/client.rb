@@ -212,6 +212,14 @@ class Epics::Client
     File.write(path, dump_keys)
   end
 
+  def Z53(from, to)
+    download_and_unzip(Epics::Z53, from, to)
+  end
+
+  def XE2(document)
+    upload(Epics::XE2, document)
+  end
+
   private
 
   def upload(order_type, document)
