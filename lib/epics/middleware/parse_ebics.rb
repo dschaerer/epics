@@ -10,7 +10,11 @@ class Epics::ParseEbics < Faraday::Middleware
     @app.call(env).on_complete do |response|
       raw_body = response[:body]
       response[:body] = ::Epics::Response.new(@client, response[:body])
-      File.write(Rails.root.join('transactions', "#{response[:body].transaction_id}.response.xml"), raw_body)
+      begin
+        File.write(Rails.root.join('transactions', "#{response[:body].transaction_id}.response.xml"), raw_body)
+      rescue StandardError => e
+        Rails.logger.error('Could not write response file', e)
+      end
       raise Epics::Error::TechnicalError, response[:body].technical_code if response[:body].technical_error?
       raise Epics::Error::BusinessError, response[:body].business_code if response[:body].business_error?
     end
