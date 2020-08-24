@@ -19,8 +19,10 @@ class Epics::ParseEbics < Faraday::Middleware
       raise Epics::Error::BusinessError, response[:body].business_code if response[:body].business_error?
     end
   rescue Epics::Error::TechnicalError, Epics::Error::BusinessError
+    Rails.logger.error('Could not parse response', e)
     raise # re-raise as otherwise they would be swallowed by the following rescue
   rescue StandardError => e
+    Rails.logger.error('Could not parse response', e)
     raise Epics::Error::UnknownError, e
   end
 end
