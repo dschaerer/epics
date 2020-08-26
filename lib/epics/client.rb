@@ -212,7 +212,7 @@ class Epics::Client
     File.write(path, dump_keys)
   end
 
-  def Z53(from, to)
+  def Z53(from = nil, to = nil)
     download_and_unzip(Epics::Z53, from, to)
   end
 

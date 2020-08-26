@@ -2,7 +2,7 @@
 class Epics::Z53 < Epics::GenericRequest
   attr_accessor :from, :to
 
-  def initialize(client, from, to)
+  def initialize(client, from = nil, to = nil)
     super(client)
     self.from = from
     self.to = to
